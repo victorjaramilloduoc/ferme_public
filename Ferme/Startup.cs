@@ -12,6 +12,7 @@ using Ferme.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using FermeBackend;
 
 namespace Ferme
 {
@@ -34,6 +35,7 @@ namespace Ferme
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddHttpClient<api_docsClient>("FermeBackendClient");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
