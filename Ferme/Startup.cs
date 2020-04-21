@@ -7,12 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
-using Ferme.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FermeBackend;
+using Ferme.IdentityProvider;
 
 namespace Ferme
 {
@@ -28,11 +27,9 @@ namespace Ferme
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //TODO: Falta un tokenProvider si quisiera implementar reset con tokens
+            services.AddDefaultIdentity<FermeUser>()
+                .AddUserStore<FermeUserStore>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddHttpClient<api_docsClient>("FermeBackendClient");
@@ -44,7 +41,6 @@ namespace Ferme
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
