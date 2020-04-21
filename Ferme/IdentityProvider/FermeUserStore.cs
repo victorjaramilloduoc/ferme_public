@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FermeBackend;
+using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,14 +12,42 @@ namespace Ferme.IdentityProvider
 {
     public class FermeUserStore : IUserStore<FermeUser>, IUserLoginStore<FermeUser>, IUserPasswordStore<FermeUser>, IUserEmailStore<FermeUser>
     {
+        // Se trae el factory, para pedir que crear clientes para el backend
+        private IHttpClientFactory _clientFactory;
+
+        public FermeUserStore(IHttpClientFactory clientFactory)
+        {
+            _clientFactory = clientFactory;
+        }
+
         public Task AddLoginAsync(FermeUser user, UserLoginInfo login, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IdentityResult> CreateAsync(FermeUser user, CancellationToken cancellationToken)
+        // Realiza un POST en base a los datos ingresados en el formulario de registro
+        public async Task<IdentityResult> CreateAsync(FermeUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            //TODO: Registro debe contener mas datos
+            UserEntity usuario = new UserEntity()
+            {
+                Name = "PRUEBA",
+                Address = "PRUEBA",
+                BirthDate = DateTime.Now,
+                Rut = 1,
+                Dv = "1",
+                Enable = true,
+                Genere = "N",
+                LastName = "PRUEBA",
+                Email = user.Email,
+                Password = user.PasswordHash,
+            };
+
+            // Llama  al clientFactory y pide un cliente para el backend
+            api_docsClient clienteAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
+            await clienteAPI.SaveUserUsingPOSTAsync(usuario);
+            return IdentityResult.Success;
         }
 
         public Task<IdentityResult> DeleteAsync(FermeUser user, CancellationToken cancellationToken)
@@ -26,7 +57,7 @@ namespace Ferme.IdentityProvider
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public Task<FermeUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
@@ -44,14 +75,37 @@ namespace Ferme.IdentityProvider
             throw new NotImplementedException();
         }
 
-        public Task<FermeUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+        // Busca a un usuario por su nombre de usuario (Normalizado con mayúscula)
+        public async Task<FermeUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            api_docsClient clienteAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
+            JArray usuarios = (JArray)await clienteAPI.GetUsersUsingGETAsync();
+            foreach (var usuario in usuarios)
+            {
+                var usuarioApi = usuario.ToObject<UserEntity>();
+                if (usuarioApi.Email.ToUpper() == normalizedUserName)
+                {
+                    return new FermeUser()
+                    {
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        PasswordHash = usuarioApi.Password,
+                        Email = usuarioApi.Email,
+                        Login = usuarioApi.Email,
+                        NormalizedUserName = usuarioApi.Email.ToUpper(),
+                        NormalizedEmail = usuarioApi.Email.ToUpper(),
+                        Id = usuarioApi.Id.GetValueOrDefault(),
+                        UserName = usuarioApi.Email
+                    };
+                }
+            }
+            return null;
         }
 
+        // Saca el campo de email
         public Task<string> GetEmailAsync(FermeUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            return Task.FromResult<string>(user.Email);
         }
 
         public Task<bool> GetEmailConfirmedAsync(FermeUser user, CancellationToken cancellationToken)
@@ -74,19 +128,29 @@ namespace Ferme.IdentityProvider
             throw new NotImplementedException();
         }
 
+        // Llama al password hasheado (almacena una clave imposible de decifrar)
         public Task<string> GetPasswordHashAsync(FermeUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            if (user == null) throw new ArgumentNullException(nameof(user));
+
+            return Task.FromResult(user.PasswordHash);
         }
 
         public Task<string> GetUserIdAsync(FermeUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            if (user == null) throw new ArgumentNullException(nameof(user));
+
+            return Task.FromResult(user.Id.ToString());
         }
 
         public Task<string> GetUserNameAsync(FermeUser user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            if (user == null) throw new ArgumentNullException(nameof(user));
+
+            return Task.FromResult(user.UserName);
         }
 
         public Task<bool> HasPasswordAsync(FermeUser user, CancellationToken cancellationToken)
@@ -99,9 +163,12 @@ namespace Ferme.IdentityProvider
             throw new NotImplementedException();
         }
 
+        // toma el mail que viene del formulario y lo coloca al usuario del front
         public Task SetEmailAsync(FermeUser user, string email, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            user.Email = email;
+            return Task.FromResult<object>(null);
         }
 
         public Task SetEmailConfirmedAsync(FermeUser user, bool confirmed, CancellationToken cancellationToken)
@@ -111,22 +178,34 @@ namespace Ferme.IdentityProvider
 
         public Task SetNormalizedEmailAsync(FermeUser user, string normalizedEmail, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            user.NormalizedEmail = normalizedEmail;
+            return Task.FromResult<object>(null);
         }
 
+        // Se trae el nombre del usuario del formulario (normalizado) y lo copia al usuario del front end
         public Task SetNormalizedUserNameAsync(FermeUser user, string normalizedName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            if (user == null) throw new ArgumentNullException(nameof(user));
+            user.NormalizedUserName = normalizedName;
+            return Task.FromResult(user.NormalizedUserName);
         }
 
+        // Se trae el password del usuario del formulario (normalizado) y lo copia al usuario del front end
         public Task SetPasswordHashAsync(FermeUser user, string passwordHash, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            if (user == null) throw new ArgumentNullException(nameof(user));
+            user.PasswordHash = passwordHash;
+            return Task.FromResult(user.PasswordHash);
         }
 
         public Task SetUserNameAsync(FermeUser user, string userName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            user.UserName = userName;
+            user.Login = userName;
+            return Task.FromResult<object>(null);
         }
 
         public Task<IdentityResult> UpdateAsync(FermeUser user, CancellationToken cancellationToken)
