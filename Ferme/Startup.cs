@@ -64,7 +64,7 @@ namespace Ferme
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapAreaControllerRoute("Users","Users", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute("Users","Users", "{controller=Home}/{action=Index}/{id?}"); // Esta linea se debe eliminar
                 endpoints.MapRazorPages();
             });
         }
