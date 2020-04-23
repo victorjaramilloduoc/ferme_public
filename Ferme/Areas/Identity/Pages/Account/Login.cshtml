@@ -6,12 +6,13 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+<br>
 <div class="row">
-    <div class="col-md-6">
-        <section>
+    <div class="col-md-5 container-login">
+        <section class="container-login-iniciar-sesion">
             <form id="account" method="post">
-                <h4>Ingrese su correo y contraseña</h4>
-                <hr />
+                <h4>Ingresa tu correo y contraseña</h4>
+                <br>
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Input.Email">Correo</label>
@@ -32,32 +33,31 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    <button type="submit" class="btn btn-primary container-login-button">Iniciar Sesión</button>
                 </div>
                 <div class="form-group">
-                    <p>
+                    <!--<p>
                         <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
+                    </p>-->
                 </div>
             </form>
         </section>
     </div>
-    <div class="col-md-6 col-md-offset-6">
-        <section>
-            <h4>Use another service to log in.</h4>
-            <hr />
+    <div class="col-md-5 container-login seccion-registro">
+        <section class="container-login-registrar">
+            <h4>¿Aún no has creado tu cuenta?</h4>
+            <br>
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
                     <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
+                        <p id="texto-registro">
+                            Al registrarte en la ferreteria Ferme, podras acceder fácilmente a nuestro catálogo, junto a un historial de los productos adquiridos.
                         </p>
                     </div>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="container-login-boton-registrar">Registrar</a>
+                    </p>
                 }
                 else
                 {
