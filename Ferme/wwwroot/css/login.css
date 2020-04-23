@@ -1,0 +1,47 @@
+.container-login{
+    background-color: #ececec;
+    border-radius: 5px;
+}
+
+.container-login-iniciar-sesion, .container-login-registrar{
+    display: flex;
+    flex-direction: column;
+    margin: 10%;
+}
+
+.seccion-registro{
+    margin: 0 0 0 auto;
+}
+
+.container-login-button{
+    width: 100%
+}
+
+.container-login-boton-registrar{
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    width: 100%;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.container-login-boton-registrar:hover{
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    text-decoration: none;
+}
+
+#texto-registro{
+    padding: 50px 0 30px 0;
+}
