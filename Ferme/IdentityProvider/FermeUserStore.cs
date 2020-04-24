@@ -39,7 +39,7 @@ namespace Ferme.IdentityProvider
                 Dv = "1",
                 Enable = true,
                 Genere = "N",
-                LastName = user.LastName + "" + user.SecondSurname ,
+                LastName = user.LastName + " " + user.SecondSurname ,
                 Email = user.Email,
                 Password = user.PasswordHash,
             };
