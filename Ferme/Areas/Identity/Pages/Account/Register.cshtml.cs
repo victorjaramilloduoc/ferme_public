@@ -62,6 +62,15 @@ namespace Ferme.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
+            [Display(Name = "Nombre")]
+            public string FirstName { get; set; }
+
+            [Display(Name = "Apellido Paterno")]
+            public string LastName { get; set; }
+
+            [Display(Name = "Apellido Materno")]
+            public string SecondSurname { get; set; }
+
 
         }
 
@@ -77,7 +86,15 @@ namespace Ferme.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new FermeUser { UserName = Input.Email, Email = Input.Email };
+                var user = new FermeUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    SecondSurname = Input.SecondSurname
+                };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

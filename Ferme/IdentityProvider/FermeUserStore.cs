@@ -32,14 +32,14 @@ namespace Ferme.IdentityProvider
             //TODO: Registro debe contener mas datos
             UserEntity usuario = new UserEntity()
             {
-                Name = "PRUEBA",
+                Name = user.FirstName,
                 Address = "PRUEBA",
                 BirthDate = DateTime.Now,
                 Rut = 1,
                 Dv = "1",
                 Enable = true,
                 Genere = "N",
-                LastName = "PRUEBA",
+                LastName = user.LastName + "" + user.SecondSurname ,
                 Email = user.Email,
                 Password = user.PasswordHash,
             };
