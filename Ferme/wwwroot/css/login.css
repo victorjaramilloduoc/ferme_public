@@ -45,3 +45,19 @@
 #texto-registro{
     padding: 50px 0 30px 0;
 }
+
+/*Media queries*/
+
+@media(max-width:740px) {
+    .container-login{
+        margin:10px auto;
+    }
+
+    .container-login-iniciar-sesion, .container-login-registrar{
+        margin: 10% 0;
+    }
+
+    main h1 {
+        text-align: center;
+    }
+}
