@@ -71,6 +71,13 @@ namespace Ferme.Areas.Identity.Pages.Account
             [Display(Name = "Apellido Materno")]
             public string SecondSurname { get; set; }
 
+            [Display(Name = "Rut")]
+            public int Rut { get; set; }
+
+            public string Genere { get; set; }
+            public int Phone { get; set; }
+
+            public string Address { get; set; }
 
         }
 
@@ -92,7 +99,11 @@ namespace Ferme.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    SecondSurname = Input.SecondSurname
+                    SecondSurname = Input.SecondSurname,
+                    Rut= Input.Rut,
+                    Genere=Input.Genere,
+                    //Phone=Input.Phone
+                    Address=Input.Address
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);

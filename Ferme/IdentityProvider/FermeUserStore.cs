@@ -33,15 +33,16 @@ namespace Ferme.IdentityProvider
             UserEntity usuario = new UserEntity()
             {
                 Name = user.FirstName,
-                Address = "PRUEBA",
                 BirthDate = DateTime.Now,
-                Rut = 1,
+                Rut = user.Rut,
                 Dv = "1",
                 Enable = true,
-                Genere = "N",
+                Genere = user.Genere,
                 LastName = user.LastName + " " + user.SecondSurname ,
                 Email = user.Email,
                 Password = user.PasswordHash,
+                //Phone=user.Phone
+                Address=user.Address
             };
 
             // Llama  al clientFactory y pide un cliente para el backend
