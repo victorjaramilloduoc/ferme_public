@@ -231,3 +231,6 @@ _Pvt_Extensions
 
 # Paket dependency manager
 .paket/pake
+
+.vscode/*
+.vs/*
