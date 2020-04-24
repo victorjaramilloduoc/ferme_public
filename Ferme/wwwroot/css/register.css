@@ -1,0 +1,16 @@
+﻿.container-register {
+    background-color: #ececec;
+    border-radius: 5px;
+}
+
+.container-register-registrar {
+    display: flex;
+    flex-direction: column;
+    margin: 10%;
+}
+
+
+.container-register-button {
+    width: 100%
+}
+
