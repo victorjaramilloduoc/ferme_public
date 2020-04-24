@@ -232,5 +232,10 @@ _Pvt_Extensions
 # Paket dependency manager
 .paket/pake
 
-.vscode/
-.vs/
+.vscode
+.vs/Ferme/DesignTimeBuild/.dtbcache.v2
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/Ferme/config/applicationhost.config
+.vscode/launch.json
+.vscode/tasks.json
