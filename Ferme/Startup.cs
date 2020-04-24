@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FermeBackend;
 using Ferme.IdentityProvider;
+using FermeMVCAuth.IdentityProvider;
 
 namespace Ferme
 {
@@ -29,7 +30,9 @@ namespace Ferme
         {
             //TODO: Falta un tokenProvider si quisiera implementar reset con tokens
             services.AddDefaultIdentity<FermeUser>()
-                .AddUserStore<FermeUserStore>();
+                .AddUserStore<FermeUserStore>()
+                .AddErrorDescriber<SpanishIdentityErrorDescriber>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddHttpClient<api_docsClient>("FermeBackendClient");
