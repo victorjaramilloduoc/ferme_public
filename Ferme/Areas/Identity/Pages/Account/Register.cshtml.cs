@@ -73,11 +73,15 @@ namespace Ferme.Areas.Identity.Pages.Account
 
             [Display(Name = "Rut")]
             public int Rut { get; set; }
+            public int Dv { get; set; }
 
             public string Genere { get; set; }
             public int Phone { get; set; }
 
             public string Address { get; set; }
+            public string Block { get; set; }
+            public System.DateTimeOffset? BirthDate { get; set; }
+            public String Location { get; set; }
 
         }
 
@@ -101,9 +105,12 @@ namespace Ferme.Areas.Identity.Pages.Account
                     LastName = Input.LastName,
                     SecondSurname = Input.SecondSurname,
                     Rut= Input.Rut,
+                    Dv=Input.Dv,
                     Genere=Input.Genere,
                     //Phone=Input.Phone
-                    Address=Input.Address
+                    Address=Input.Address,
+                    BirthDate=Input.BirthDate,
+                    Block=Input.Block
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
