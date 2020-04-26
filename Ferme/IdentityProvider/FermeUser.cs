@@ -18,7 +18,7 @@ namespace Ferme.IdentityProvider
         public string SecondSurname { get; set; }
 
         public int Rut { get; set; }
-        public int Dv { get; set; }
+        public string Dv { get; set; }
         public string Genere { get; set; }
         public int Phone { get; set; }
 

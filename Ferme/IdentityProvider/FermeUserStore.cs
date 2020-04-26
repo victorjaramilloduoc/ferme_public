@@ -35,7 +35,7 @@ namespace Ferme.IdentityProvider
                 Name = user.FirstName,
                 BirthDate = user.BirthDate,
                 Rut = user.Rut,
-                Dv = user.Dv.ToString(),
+                Dv = user.Dv,
                 Enable = true,
                 Genere = user.Genere,
                 LastName = user.LastName + " " + user.SecondSurname ,
