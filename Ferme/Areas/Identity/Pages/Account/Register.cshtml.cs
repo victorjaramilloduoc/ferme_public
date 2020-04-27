@@ -76,7 +76,7 @@ namespace Ferme.Areas.Identity.Pages.Account
             [Required(ErrorMessage = "Debes ingresar cédula de identidad")]
             [StringLength(8, ErrorMessage = "Existe un error en la cantidad de caracteres", MinimumLength = 7)]
             [Display(Name = "Rut")]
-            public int Rut { get; set; }
+            public string Rut { get; set; }
 
             [StringLength(1)]
             public string Dv { get; set; }
@@ -110,7 +110,7 @@ namespace Ferme.Areas.Identity.Pages.Account
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     SecondSurname = Input.SecondSurname,
-                    Rut= Input.Rut,
+                    Rut= int.Parse(Input.Rut),
                     Dv=Input.Dv,
                     Genere=Input.Genere,
                     //Phone=Input.Phone
