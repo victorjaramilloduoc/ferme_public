@@ -46,12 +46,12 @@ namespace Ferme.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Debes ingresar un correo eléctronico")]
+            [EmailAddress(ErrorMessage = "Debes ingresar un correo válido")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Debes ingresar una contraseña")]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -59,20 +59,26 @@ namespace Ferme.Areas.Identity.Pages.Account
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "la contraseña y su confirmación no son iguales")]
             public string ConfirmPassword { get; set; }
 
+            [Required(ErrorMessage = "Debes ingresar un Nombre")]
             [Display(Name = "Nombre")]
             public string FirstName { get; set; }
 
+            [Required(ErrorMessage = "Debes ingresar un Apellido Paterno")]        
             [Display(Name = "Apellido Paterno")]
             public string LastName { get; set; }
 
             [Display(Name = "Apellido Materno")]
             public string SecondSurname { get; set; }
 
+            [Required(ErrorMessage = "Debes ingresar cédula de identidad")]
+            [StringLength(8, ErrorMessage = "Existe un error en la cantidad de caracteres", MinimumLength = 7)]
             [Display(Name = "Rut")]
             public int Rut { get; set; }
+
+            [StringLength(1)]
             public string Dv { get; set; }
 
             public string Genere { get; set; }
