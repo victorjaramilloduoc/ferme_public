@@ -32,16 +32,17 @@ namespace Ferme.IdentityProvider
             //TODO: Registro debe contener mas datos
             UserEntity usuario = new UserEntity()
             {
-                Name = "PRUEBA",
-                Address = "PRUEBA",
-                BirthDate = DateTime.Now,
-                Rut = 1,
-                Dv = "1",
+                Name = user.FirstName,
+                BirthDate = user.BirthDate,
+                Rut = user.Rut,
+                Dv = user.Dv,
                 Enable = true,
-                Genere = "N",
-                LastName = "PRUEBA",
+                Genere = user.Genere,
+                LastName = user.LastName + " " + user.SecondSurname ,
                 Email = user.Email,
                 Password = user.PasswordHash,
+                //Phone=user.Phone
+                Address=user.Address + " " + user.Block
             };
 
             // Llama  al clientFactory y pide un cliente para el backend
