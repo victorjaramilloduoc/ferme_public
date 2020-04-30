@@ -1,0 +1,82 @@
+﻿@page
+@model Ferme.Areas.Identity.Pages.Account.LoginModel
+
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+<br>
+<h1>@ViewData["Title"]</h1>
+<br>
+<div class="row">
+    <div class="col-10 col-md-5 container-login">
+        <section class="container-login-iniciar-sesion">
+            <form id="account" method="post">
+                <h4>Ingresa tu correo y contraseña</h4>
+                <br>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email">Correo</label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password">Contraseña</label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe">
+                            <input asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary container-login-button">Iniciar Sesión</button>
+                </div>
+                <div class="form-group">
+                    <!--<p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>-->
+                </div>
+            </form>
+        </section>
+    </div>
+    <div class="col-10 col-md-5 container-login seccion-registro">
+        <section class="container-login-registrar">
+            <h4>¿Aún no has creado tu cuenta?</h4>
+            <br>
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p id="texto-registro">
+                            Al registrarte en la ferreteria Ferme, podrás acceder fácilmente a nuestro catálogo, junto a un historial de los productos adquiridos.
+                        </p>
+                    </div>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="container-login-boton-registrar">Registrar</a>
+                    </p>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

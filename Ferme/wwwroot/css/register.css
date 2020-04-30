@@ -1,0 +1,46 @@
+﻿.container-register {
+    background-color: #ececec;
+    border-radius: 5px;
+}
+
+.container-register-registrar {
+    display: flex;
+    flex-direction: column;
+    margin: 10%;
+}
+
+
+.container-register-button {
+    width: 100%
+}
+
+.input-rut {
+    display: flex;
+    flex-direction: row;
+}
+
+.form-rut {
+    width: 500%
+}
+
+.form-separator {
+    width: 50%;
+    padding-left: 5%;
+}
+
+.input-rut-text-danger {
+    display: flex;
+    flex-direction: column;
+}
+
+/*Media queries*/
+
+@media(max-width:740px) {
+    .container-register {
+        margin: 10px auto;
+    }
+
+    main h1 {
+        text-align: center;
+    }
+}
