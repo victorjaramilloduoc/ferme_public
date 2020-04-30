@@ -1,9 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-Ferme-E84C5CAD-268A-4D59-AACA-7FF9E305523C</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <Description>Entrega iteración 1
+- Login con Asp .NET Identity
+- Registro con Asp .NET Identity
+- Configuración Docker</Description>
   </PropertyGroup>
 
   <ItemGroup>
