@@ -25,7 +25,6 @@ namespace Ferme.IdentityProvider
         public string Address { get; set; }
         public string Block { get; set; }
         public System.DateTimeOffset? BirthDate { get; set; }
-
-       
+        public string Token { get; set; }   
     }
 }

@@ -32,22 +32,47 @@ namespace Ferme.IdentityProvider
             //TODO: Registro debe contener mas datos
             UserEntity usuario = new UserEntity()
             {
+                Id = 0,
                 Name = user.FirstName,
                 BirthDate = user.BirthDate,
                 Rut = user.Rut,
                 Dv = user.Dv,
                 Enable = true,
                 Genere = user.Genere,
-                LastName = user.LastName + " " + user.SecondSurname ,
+                LastName = user.LastName + " " + user.SecondSurname,
                 Email = user.Email,
                 Password = user.PasswordHash,
                 //Phone=user.Phone
-                Address=user.Address + " " + user.Block
+                Address = user.Address + " " + user.Block,
+                Location = new LocationEntity()
+                {
+                    Id = 30,
+                    LocatioName = "Peñalolén",
+                    City = new CityEntity()
+                    {
+                        Id = 41,
+                        CityName = "Santiago",
+                        Region = new RegionEntity()
+                        {
+                            Id = 21,
+                            RegionName = "Metropolitana"
+                        }
+                    }
+                }
             };
 
             // Llama  al clientFactory y pide un cliente para el backend
             api_docsClient clienteAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
-            await clienteAPI.SaveUserUsingPOSTAsync(usuario);
+            JObject response = (JObject) await clienteAPI.SaveUserUsingPOSTAsync(usuario);
+            if (response["status"].Value<string>() == "error")
+            {
+                var error = new IdentityError()
+                {
+                    Code = "API",
+                    Description = "Error guardando el usuario nuevo"
+                };
+                return IdentityResult.Failed(error);
+            }
             return IdentityResult.Success;
         }
 
@@ -79,6 +104,7 @@ namespace Ferme.IdentityProvider
         // Busca a un usuario por su nombre de usuario (Normalizado con mayúscula)
         public async Task<FermeUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
+            PasswordHasher<FermeUser> passwordHasher = new PasswordHasher<FermeUser>();
             api_docsClient clienteAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
             JArray usuarios = (JArray)await clienteAPI.GetUsersUsingGETAsync();
             foreach (var usuario in usuarios)
@@ -89,13 +115,15 @@ namespace Ferme.IdentityProvider
                     return new FermeUser()
                     {
                         SecurityStamp = Guid.NewGuid().ToString(),
-                        PasswordHash = usuarioApi.Password,
+                        PasswordHash =  usuarioApi.Password,
                         Email = usuarioApi.Email,
                         Login = usuarioApi.Email,
                         NormalizedUserName = usuarioApi.Email.ToUpper(),
                         NormalizedEmail = usuarioApi.Email.ToUpper(),
                         Id = usuarioApi.Id.GetValueOrDefault(),
-                        UserName = usuarioApi.Email
+                        UserName = usuarioApi.Email,
+                        FirstName = usuarioApi.Name,
+                        LastName = usuarioApi.LastName
                     };
                 }
             }
