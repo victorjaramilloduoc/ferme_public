@@ -28,7 +28,8 @@ namespace Ferme.IdentityProvider
 		protected override async Task<ClaimsIdentity> GenerateClaimsAsync(FermeUser user)
 		{
 			var identity = await base.GenerateClaimsAsync(user);
-			identity.AddClaim(new Claim("DisplayName", user.FirstName ?? "Anónimo"));
+			var	apellido = user.LastName.Split(" ")[0];
+			identity.AddClaim(new Claim("DisplayName", user.FirstName + " " + apellido ?? "Anónimo"));
 			identity.AddClaim(new Claim("ApiToken", user.Token ?? ""));
 			return identity;
 		}
