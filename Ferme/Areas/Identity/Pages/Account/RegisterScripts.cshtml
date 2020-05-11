@@ -1,0 +1,29 @@
+<script>
+    //Scripts para la página de registro (Register.cshtml)
+    const traerCiudades = async (id) => {
+        let response = await fetch(`../../api/location/region/${id}/ciudades`);
+        if (response.ok) {
+            let ciudades = await response.json();
+            let htmlSelCiudad = "";
+            htmlSelCiudad = `<option>Seleccione Ciudad</option>`
+            Array.from(ciudades).forEach((itemCiudad) => {
+                htmlSelCiudad += `<option value="${itemCiudad.value}">${itemCiudad.text}</option>`;
+            })
+            document.getElementById("selCiudad").innerHTML = htmlSelCiudad;
+            document.getElementById("selLocation").innerHTML = `<option>Seleccione Comuna</option>`;
+        }
+    }
+
+    const traerComunas = async (id) => {
+        let response = await fetch(`../../api/location/ciudad/${id}/comunas`);
+        if (response.ok) {
+            let comunas = await response.json();
+            let htmlSelComuna = "";
+            htmlSelComuna = `<option>Seleccione Comuna</option>`
+            Array.from(comunas).forEach((itemComuna) => {
+                htmlSelComuna += `<option value="${itemComuna.value}">${itemComuna.text}</option>`;
+            });
+            document.getElementById("selLocation").innerHTML = htmlSelComuna;
+        }
+    }
+</script>

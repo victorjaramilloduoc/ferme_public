@@ -28,14 +28,25 @@ namespace Ferme
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPasswordHasher<FermeUser>, FermePasswordHasher>();
             //TODO: Falta un tokenProvider si quisiera implementar reset con tokens
             services.AddDefaultIdentity<FermeUser>()
                 .AddUserStore<FermeUserStore>()
+                .AddClaimsPrincipalFactory<FermeUserClaimsPrincipalFactory>()
                 .AddErrorDescriber<SpanishIdentityErrorDescriber>();
-
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddHttpClient<api_docsClient>("FermeBackendClient");
+            services.Configure<IdentityOptions>(options => 
+            {
+                // Restricciones de contraseña para usuarios
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 0;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
