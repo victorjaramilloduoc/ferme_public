@@ -44,21 +44,7 @@ namespace Ferme.IdentityProvider
                 Password = user.PasswordHash,
                 //Phone=user.Phone
                 Address = user.Address + " " + user.Block,
-                Location = new LocationEntity()
-                {
-                    Id = 30,
-                    LocatioName = "Peñalolén",
-                    City = new CityEntity()
-                    {
-                        Id = 41,
-                        CityName = "Santiago",
-                        Region = new RegionEntity()
-                        {
-                            Id = 21,
-                            RegionName = "Metropolitana"
-                        }
-                    }
-                }
+                Location = user.Location
             };
 
             // Llama  al clientFactory y pide un cliente para el backend

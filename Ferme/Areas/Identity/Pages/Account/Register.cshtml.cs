@@ -119,6 +119,9 @@ namespace Ferme.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                api_docsClient clientAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
+                var comunas = ((JArray) await clientAPI.GetLocationsUsingGETAsync()).ToObject<List<LocationEntity>>();
+                var comuna = (from c in comunas where c.Id.ToString() == Input.Location select c).FirstOrDefault();
                 var user = new FermeUser
                 {
                     UserName = Input.Email,
@@ -132,7 +135,8 @@ namespace Ferme.Areas.Identity.Pages.Account
                     //Phone=Input.Phone
                     Address=Input.Address,
                     BirthDate=Input.BirthDate,
-                    Block=Input.Block
+                    Block=Input.Block,
+                    Location = comuna
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
