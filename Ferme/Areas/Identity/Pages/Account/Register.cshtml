@@ -86,21 +86,19 @@
                 <h4>Información Despacho</h4>
                 <hr />
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Region</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>Metropolitana</option>
+                    <label for="selRegion">Region</label>
+                    <select class="form-control" id="selRegion" asp-items="Model.Regiones" onchange="traerCiudades(this.value)">
+                        <option>Seleccione Región</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Ciudad</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>Santiago</option>
+                    <label for="selCiudad">Ciudad</label>
+                    <select class="form-control" id="selCiudad" onchange="traerComunas(this.value)">
                     </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Input.Location" for="exampleFormControlSelect1">Comuna</label>
-                    <select asp-for="Input.Location" class="form-control" id="exampleFormControlSelect1">
-                        <option>San Joaquin</option>
+                    <label asp-for="Input.Location" for="selLocation">Comuna</label>
+                    <select asp-for="Input.Location" class="form-control" id="selLocation">
                     </select>
                 </div>
                 <div class="form-group">
@@ -121,4 +119,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <partial name="RegisterScripts" />
 }
