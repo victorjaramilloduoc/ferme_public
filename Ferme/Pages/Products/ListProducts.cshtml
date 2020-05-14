@@ -1,0 +1,23 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Lista Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>
+    @ViewData["Title"]
+</h1>
+<div class="container row">
+
+    <div id="list-example" class="list-group col-10 col-md-3">
+        <a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-2">Item 2</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
+    </div>
+    <div id="contenedorProductos" class="row col-md-9"></div>
+</div>
+
+@section Scripts {
+    <partial name="ListProductsScripts" />
+}
