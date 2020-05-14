@@ -1,0 +1,22 @@
+﻿<script>
+    const traerProductos = async () => {
+        let response = await fetch(`../../api/product/producto`);
+        if (response.ok) {
+            let productos = await response.json();
+            let html = ``;
+            Array.from(productos).forEach((producto) => {
+                html += `
+                    <div class="card col-10 col-md-3">
+                        <img src="..." class="card-img-top" alt="...">
+                        <p>${producto.nombre}</p>
+                        <p>${producto.marcaProducto}</p>
+                        <p>${producto.precio}</p>
+                        <button>agregar</button>
+                    </div>
+                `;                
+            })
+            document.getElementById("contenedorProductos").innerHTML = html;
+        }
+    }
+    traerProductos();
+</script>
