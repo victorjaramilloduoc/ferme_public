@@ -33,10 +33,10 @@ namespace Ferme.Controllers
             {
                 var producto = new ProductModel()
                 {
+                    Id = productoAPI.Id.Value,
                     CodigoProducto = productoAPI.ProductCode.Value,
                     Nombre = productoAPI.Name,
                     Imagen = productoAPI.ProductImage,
-                    Descripcion = productoAPI.Description,
                     Stock = productoAPI.Stock.Value,
                     Precio = productoAPI.Price.Value,
                     MarcaProducto = productoAPI.BrandProduct
@@ -44,6 +44,25 @@ namespace Ferme.Controllers
                 Productos.Add(producto);
             }
             return Productos;
+        }
+
+        [HttpGet]
+        [Route("producto/{id}")]
+        public async Task<DetailProductModel> ObtenerProductoId(long id)
+        {
+            api_docsClient clienteAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
+            var productoAPI = ((JObject)await clienteAPI.SearchProductUsingGETAsync(id)).ToObject<ProductEntity>();
+            var producto = new DetailProductModel()
+            {
+                Id = productoAPI.Id.Value,
+                CodigoProducto = productoAPI.ProductCode.Value,
+                Nombre = productoAPI.Name,
+                Descripcion = productoAPI.Description,
+                Stock = productoAPI.Stock.Value,
+                Precio = productoAPI.Price.Value,
+                MarcaProducto = productoAPI.BrandProduct
+            };
+            return producto;
         }
     }
 }
