@@ -1,0 +1,22 @@
+@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Detalle Producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>
+    @ViewData["Title"]
+</h1>
+
+<div class="container">
+    <img id="imagen" src="" class="card-img-top" alt="...">
+    <p id="nombre"></p>
+    <p id="marca-producto"></p>
+    <p id="precio"></p>
+    <p id="descripcion"></p>
+    <button>agregar</button>
+</div>
+
+@section Scripts {
+    <partial name="DetailProductScripts" />
+}
