@@ -99,7 +99,7 @@ namespace Ferme.IdentityProvider
                 if (usuarioApi.Email.ToUpper() == normalizedUserName)
                 {
                     return new FermeUser()
-                    {
+                    { 
                         SecurityStamp = Guid.NewGuid().ToString(),
                         PasswordHash =  usuarioApi.Password,
                         Email = usuarioApi.Email,
