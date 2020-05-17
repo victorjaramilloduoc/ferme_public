@@ -6,14 +6,14 @@
             let html = ``;
             Array.from(productos).forEach((producto) => {
                 html += `
-                    <div class="card col-10 col-md-3">
-                        <img src=${producto.imagen} class="card-img-top" alt="...">
-                        <p>${producto.nombre}</p>
-                        <p>${producto.marcaProducto}</p>
-                        <p>${producto.precio}</p>
-                        <button>agregar</button>
+                    <div class="card col-6 col-md-3">
+                        <img class="productos-img" src=${producto.imagen} class="card-img-top" alt="${producto.nombre}">
+                        <p class="productos-marca">${producto.marcaProducto}</p>
+                        <p class="productos-nombre">${producto.nombre}</p>
+                        <p class="productos-precio">$ ${producto.precio.toLocaleString()} c/u</p>
+                        <button class="productos-agregar">Agregar</button>
                     </div>
-                `;                
+                `;
             })
             document.getElementById("contenedorProductos").innerHTML = html;
         }
