@@ -25,7 +25,12 @@
 }
 
 .productos-nombre{
-    font-size: 16px;
+    font-size: 16px;    
+}
+
+.productos-nombre a {
+    text-decoration: none;
+    color: #212529;    
 }
 
 .productos-precio{

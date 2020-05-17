@@ -57,6 +57,7 @@ namespace Ferme.Controllers
                 Id = productoAPI.Id.Value,
                 CodigoProducto = productoAPI.ProductCode.Value,
                 Nombre = productoAPI.Name,
+                Imagen = productoAPI.ProductImage,
                 Descripcion = productoAPI.Description,
                 Stock = productoAPI.Stock.Value,
                 Precio = productoAPI.Price.Value,
