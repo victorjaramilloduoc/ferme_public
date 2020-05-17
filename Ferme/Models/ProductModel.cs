@@ -11,6 +11,7 @@ namespace Ferme.Models
     {
         public long CodigoProducto { get; set; }
         public string Nombre { get; set; }
+        public string Imagen { get; set; }
         public string Descripcion { get; set; }
         public long Stock { get; set; }
         public long Precio { get; set; }

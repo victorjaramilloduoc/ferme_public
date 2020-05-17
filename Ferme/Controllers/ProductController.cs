@@ -35,10 +35,11 @@ namespace Ferme.Controllers
                 {
                     CodigoProducto = productoAPI.ProductCode.Value,
                     Nombre = productoAPI.Name,
+                    Imagen = productoAPI.ProductImage,
                     Descripcion = productoAPI.Description,
                     Stock = productoAPI.Stock.Value,
                     Precio = productoAPI.Price.Value,
-                    MarcaProducto = productoAPI.MarcaProducto
+                    MarcaProducto = productoAPI.BrandProduct
                 };
                 Productos.Add(producto);
             }
