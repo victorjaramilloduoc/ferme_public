@@ -5,11 +5,12 @@
         if (response.ok) {
             let producto = await response.json();
 
-        // document.getElementById("imagen").src = producto;
-        document.getElementById("nombre").innerHTML = producto.nombre;
-        document.getElementById("marca-producto").innerHTML = producto.marcaProducto;
-        document.getElementById("precio").innerHTML = producto.precio;
-        document.getElementById("descripcion").innerHTML = producto.descripcion;
+        document.getElementById("detalle-producto-img").src = producto.imagen;
+        document.getElementById("detalle-producto-img").alt = producto.nombre;
+        document.getElementById("detalle-producto-nombre").innerHTML = producto.nombre;
+        document.getElementById("detalle-producto-marca").innerHTML = producto.marcaProducto;
+        document.getElementById("detalle-producto-precio").innerHTML = `$ ${producto.precio.toLocaleString()} c/u`;
+        document.getElementById("detalle-producto-descripcion").innerHTML = producto.descripcion;
         }
     }
     traerProductoId();
