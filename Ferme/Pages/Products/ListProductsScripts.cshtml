@@ -9,7 +9,7 @@
                     <div class="card col-6 col-md-3">
                         <img class="productos-img" src=${producto.imagen} class="card-img-top" alt="${producto.nombre}">
                         <p class="productos-marca">${producto.marcaProducto}</p>
-                        <p class="productos-nombre">${producto.nombre}</p>
+                        <p class="productos-nombre"><a href="DetailProduct?id=${producto.codigoProducto}">${producto.nombre}</a></p>
                         <p class="productos-precio">$ ${producto.precio.toLocaleString()} c/u</p>
                         <button class="productos-agregar">Agregar</button>
                     </div>

@@ -1,0 +1,17 @@
+<script>
+    const traerProductoId = async () => {
+        let urlParams = new URLSearchParams(location.search); //saca el id del queryparams de la url
+        let response = await fetch(`../../api/product/producto/${urlParams.get("id")}`);
+        if (response.ok) {
+            let producto = await response.json();
+
+        document.getElementById("detalle-producto-img").src = producto.imagen;
+        document.getElementById("detalle-producto-img").alt = producto.nombre;
+        document.getElementById("detalle-producto-nombre").innerHTML = producto.nombre;
+        document.getElementById("detalle-producto-marca").innerHTML = producto.marcaProducto;
+        document.getElementById("detalle-producto-precio").innerHTML = `$ ${producto.precio.toLocaleString()} c/u`;
+        document.getElementById("detalle-producto-descripcion").innerHTML = producto.descripcion;
+        }
+    }
+    traerProductoId();
+</script>
