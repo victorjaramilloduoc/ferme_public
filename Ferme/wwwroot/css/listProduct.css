@@ -20,7 +20,7 @@
 
 .productos-marca{
     text-transform: uppercase;
-    color: #c4c4c4;
+    color: #868484;
     font-size: 14px;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .productos-agregar{
-    color: #c4c4c4;
+    color: #868484;
     background-color: white;
     width: 100%;
     display: inline-block;
@@ -47,7 +47,7 @@
     text-align: center;
     user-select: none;
     vertical-align: middle;
-    border: 1px solid #c4c4c4;
+    border: 1px solid #868484;
     padding: .375rem .75rem;
     margin-bottom: 10px;
     font-size: 1rem;
