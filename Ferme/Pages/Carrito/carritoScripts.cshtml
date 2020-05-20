@@ -1,0 +1,16 @@
+﻿
+    <script>
+    class Carrito {
+
+        //añadir el producto al carrito
+        comprarProducto(e) {
+            e.preventDefault();
+            if (e.target.classList.contains('productos-agregar')) {
+                const producto = e.target.parentElement.parentElement;
+                //this.leerDatosProducto(producto);
+                console.log(producto);
+            }
+        }
+
+    }
+    </script>

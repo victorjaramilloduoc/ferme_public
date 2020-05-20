@@ -1,0 +1,29 @@
+﻿@page
+@model Ferme.Pages.Carrito.Carrito_compraModel
+@{
+    ViewData["Title"] = "Carrito_compra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Carro de Compra</h1>
+<div class="container">
+    <div id="carrito-compra" class="container-carrito">
+        <h3>Carro de compras Vacio</h3>
+        <table id="listado-carrito" class="table">
+            <tbody></tbody>
+        </table>        
+    </div>
+    <br />
+    <nav class="navbar navbar-dark">
+        <a class="navbar-brand">Resumen de tu Compra</a>
+        <form class="form-inline">
+            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Ver mas Productos</button>
+        </form>
+    </nav>
+</div>
+
+
+@section Scripts {
+    <partial name="carritoScripts" />
+    <partial name="PedidoScripts" />
+}

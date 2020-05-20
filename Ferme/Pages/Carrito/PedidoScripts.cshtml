@@ -1,0 +1,14 @@
+﻿<script>
+    const carro = new Carrito();
+    const carrito = document.getElementById('carrito');
+    const productos = document.getElementById('contenedorProductos');
+    const listaProductos = document.querySelector('#listado-carrito tbody')
+
+    cargarEventos();
+
+    function cargarEventos() {
+        productos = addEventListener('click', (e) => { carro.comprarProducto(e) });
+    }
+
+
+</script> 
