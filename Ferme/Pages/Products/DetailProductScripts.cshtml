@@ -4,13 +4,19 @@
         let response = await fetch(`../../api/product/producto/${urlParams.get("id")}`);
         if (response.ok) {
             let producto = await response.json();
-
-        document.getElementById("detalle-producto-img").src = producto.imagen;
-        document.getElementById("detalle-producto-img").alt = producto.nombre;
-        document.getElementById("detalle-producto-nombre").innerHTML = producto.nombre;
-        document.getElementById("detalle-producto-marca").innerHTML = producto.marcaProducto;
-        document.getElementById("detalle-producto-precio").innerHTML = `$ ${producto.precio.toLocaleString()} c/u`;
-        document.getElementById("detalle-producto-descripcion").innerHTML = producto.descripcion;
+            let html = `
+                <img id="detalle-producto-img" class="col-12 col-md-6" src="${producto.imagen}" alt="${producto.nombre}">
+                <section class="col-10 col-md-6 detalle-producto">
+                    <p id="detalle-producto-marca">${producto.marcaProducto}</p>
+                    <p id="detalle-producto-nombre">${producto.nombre}</p>
+                    <p id="detalle-producto-descripcion">${producto.descripcion}</p>
+                    <p id="detalle-producto-precio">$ ${producto.precio.toLocaleString()} c/u</p>
+                    ${producto.stock === 0 ?
+                    '<p>Producto No Disponible</p>'
+                    : '<button id="detalle-producto-agregar" class="float-right">Agregar al carro</button>'}
+                </section>
+            `;
+            document.getElementById("contenedorDetalleProducto").innerHTML = html;
         }
     }
     traerProductoId();
