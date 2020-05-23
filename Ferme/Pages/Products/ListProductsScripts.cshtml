@@ -11,7 +11,9 @@
                         <p class="productos-marca">${producto.marcaProducto}</p>
                         <p class="productos-nombre"><a href="DetailProduct?id=${producto.id}">${producto.nombre}</a></p>
                         <p class="productos-precio">$ ${producto.precio.toLocaleString()} c/u</p>
-                        ${producto.stock === 0 ? '<p>Producto No Disponible</p>' :'<button class="productos-agregar">Agregar</button>'}
+                        ${producto.stock === 0 
+                        ? '<p>Producto No Disponible</p>'
+                        :`<button class="productos-agregar" onclick="agregarCarro(${producto.id})">Agregar</button>`}
                     </div>
                 `;
             })
