@@ -1,0 +1,39 @@
+<script>
+    const agregarCarro = async (id) => {
+        let storage = window.localStorage;
+        let cart = [];
+        if (storage.getItem("cart")) {
+            cart = JSON.parse(storage.getItem("cart"));
+        }
+        let response = await fetch(`../../api/product/producto/${id}`);
+        if (response.ok) {
+            let producto = await response.json();
+            cart.push(producto);
+            storage.setItem("cart", JSON.stringify(cart));
+        }
+    }
+    const mostrarProductosCarro = () => {
+        let storage = window.localStorage;
+        if (storage.getItem("cart")) {
+            cart = JSON.parse(storage.getItem("cart"));
+            html = '';
+            cart.forEach(producto => {
+                html += `
+                    <p>${producto.nombre}</p><button onclick="eliminarProducto(${producto.id})">Eliminar</button>
+                `
+            });
+            document.getElementById("carrito-compra").innerHTML = html;
+        }
+        else {
+            document.getElementById("carrito-compra").innerHTML = `<p>No tienes productos seleccionados</p>`;
+        }
+    }
+    const eliminarProducto = (id) => {
+        let storage = window.localStorage;
+        cart = new Array;
+        cart = JSON.parse(storage.getItem("cart"));
+        storage.setItem("cart",JSON.stringify(cart.filter(producto => producto.id !== id)));
+        mostrarProductosCarro();
+    }
+    mostrarProductosCarro();
+</script>
