@@ -109,7 +109,11 @@ namespace Ferme.IdentityProvider
                         Id = usuarioApi.Id.GetValueOrDefault(),
                         UserName = usuarioApi.Email,
                         FirstName = usuarioApi.Name,
-                        LastName = usuarioApi.LastName
+                        LastName = usuarioApi.LastName,
+                        Address = usuarioApi.Address,
+                        Rut = usuarioApi.Rut.Value,
+                        Dv = usuarioApi.Dv,
+                        Location = usuarioApi.Location
                     };
                 }
             }
