@@ -14,18 +14,70 @@
     }
     const mostrarProductosCarro = () => {
         let storage = window.localStorage;
-        if (storage.getItem("cart")) {
+        let precioTotal= 0;
+        if(!document.getElementById("carrito-compra")) return null;
+
+        if (storage.getItem("cart") && storage.getItem("cart")!=="[]") {
             cart = JSON.parse(storage.getItem("cart"));
-            html = '';
-            cart.forEach(producto => {
+            html = `
+                <table class="table">
+                    <thead class="thead">
+                        <th scope="col-md">Producto</th>
+                        <th scope="col-md">Cantidad</th>
+                        <th scope="col-md">Precio unitario</th>
+                        <th scope="col-md">Total</th>
+                        <th scope="col-md"></th>
+                    </thead>
+                    <tbody>
+            `;
+            
+            cart.forEach(producto => {                
                 html += `
-                    <p>${producto.nombre}</p><button onclick="eliminarProducto(${producto.id})">Eliminar</button>
+                <tr>
+                    <td>
+                        <img class="productos-img" src=${producto.imagen} class="card-img-top" alt="${producto.nombre}">
+                        <p class="productos-marca">${producto.marcaProducto}</p>
+                        <p class="productos-nombre">${producto.nombre}</p>
+                    </td>
+                    <td class="carro-unidad">1</td>
+                    <td><p class="productos-precio carro-precio">$ ${producto.precio.toLocaleString()} c/u</p></td>
+                    <td><p class="productos-precio">$ ${producto.precio.toLocaleString()}</p></td>
+                    <td><button onclick="eliminarProducto(${producto.id})">Eliminar</button></td>
+                </tr>
                 `
+                precioTotal += producto.precio;
             });
+            html += `
+                </tbody>
+            </table>
+            <section class="carrito-compra-detalle row">
+                <div class="col-12 col-md-9">
+                    <p>Resumen de tu Compra</p>
+                    <p class="productos-precio">Precio a pagar: $ ${precioTotal.toLocaleString()}</p>
+                </div>
+                <div class="col-12 col-md-3">
+                    <button class="button-comprar">Comprar</button>
+                    <button class="button-mas-productos">Ver más Productos</button>
+                </div>
+            </section>
+            `;
             document.getElementById("carrito-compra").innerHTML = html;
         }
         else {
-            document.getElementById("carrito-compra").innerHTML = `<p>No tienes productos seleccionados</p>`;
+            document.getElementById("carrito-compra").innerHTML = `
+                <div class="carrito-compra-vacio">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i> 
+                    <h5>Carro de compras vacío</h5>
+                </div>
+                <section class="carrito-compra-detalle row">
+                <div class="col-12 col-md-9">
+                    <p>Revisa nuestros productos</p>                   
+                </div>
+                <div class="col-12 col-md-3">
+                    <button class="button-mas-productos">Ver Productos</button>
+                </div>
+            </section>
+            `;
         }
     }
     const eliminarProducto = (id) => {

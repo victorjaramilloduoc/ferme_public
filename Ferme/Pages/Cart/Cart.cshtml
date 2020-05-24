@@ -1,20 +1,12 @@
 ﻿@page
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "Carrito_compra";
+    ViewData["Title"] = "Carro de compras";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div id="carrito-compra">
-    </div>
-    <br />
-    <nav class="navbar navbar-dark">
-        <a class="navbar-brand">Resumen de tu Compra</a>
-        <form class="form-inline">
-            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Ver mas Productos</button>
-        </form>
-    </nav>
+<div class="contenedor-carrito-compra">
+    <section id="carrito-compra" class="col-12"></section>    
 </div>
 @section Scripts {
     <partial name="CartScripts" />
