@@ -34,15 +34,17 @@
             cart.forEach(producto => {                
                 html += `
                 <tr>
-                    <td>
-                        <img class="productos-img" src=${producto.imagen} class="card-img-top" alt="${producto.nombre}">
-                        <p class="productos-marca">${producto.marcaProducto}</p>
-                        <p class="productos-nombre">${producto.nombre}</p>
+                    <td class="carro-producto">
+                        <img class="carro-img" src=${producto.imagen} class="card-img-top" alt="${producto.nombre}">
+                        <div>
+                            <p class="carro-marca">${producto.marcaProducto}</p>
+                            <p class="carro-nombre">${producto.nombre}</p>
+                        </div>
                     </td>
-                    <td class="carro-unidad">1</td>
-                    <td><p class="productos-precio carro-precio">$ ${producto.precio.toLocaleString()} c/u</p></td>
-                    <td><p class="productos-precio">$ ${producto.precio.toLocaleString()}</p></td>
-                    <td><button onclick="eliminarProducto(${producto.id})">Eliminar</button></td>
+                    <td><p class="carro-unidad">1</p></td>
+                    <td><p class="carro-precio">$ ${producto.precio.toLocaleString()} c/u</p></td>
+                    <td><p class="carro-precio-total">$ ${producto.precio.toLocaleString()}</p></td>
+                    <td><button class="button-eliminar" onclick="eliminarProducto(${producto.id})"><i class="fas fa-times-circle"></i></button></td>
                 </tr>
                 `
                 precioTotal += producto.precio;
@@ -53,7 +55,7 @@
             <section class="carrito-compra-detalle row">
                 <div class="col-12 col-md-9">
                     <p>Resumen de tu Compra</p>
-                    <p class="productos-precio">Precio a pagar: $ ${precioTotal.toLocaleString()}</p>
+                    <p class="carro-precio-total">Precio a pagar: $ ${precioTotal.toLocaleString()}</p>
                 </div>
                 <div class="col-12 col-md-3">
                     <button class="button-comprar">Comprar</button>
