@@ -39,15 +39,14 @@
 }
 
 .productos-agregar{
-    color: #868484;
+    color: #0062cc;
     background-color: white;
     width: 100%;
     display: inline-block;
-    font-weight: bold;
     text-align: center;
     user-select: none;
     vertical-align: middle;
-    border: 1px solid #868484;
+    border: 1px solid #0062cc;
     padding: .375rem .75rem;
     margin-bottom: 10px;
     font-size: 1rem;
@@ -56,11 +55,28 @@
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+.producto-no-disponible{
+    color: white;
+    background-color: orangered;
+    border: 1px solid orangered;
+    padding: .375rem .75rem;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    vertical-align: middle;
+}
+
 .productos-agregar:hover{
     color: #fff;
     font-weight: bold;
-    background-color: orangered;
-    border-color: orangered;
+    background-color: #0062cc;
+    border-color: #0062cc;
+}
+
+.productos-agregar:focus {
+    outline: none;
 }
 
 .list-group{

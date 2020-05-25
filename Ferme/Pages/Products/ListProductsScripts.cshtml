@@ -12,7 +12,7 @@
                         <p class="productos-nombre"><a href="DetailProduct?id=${producto.id}">${producto.nombre}</a></p>
                         <p class="productos-precio">$ ${producto.precio.toLocaleString()} c/u</p>
                         ${producto.stock === 0 
-                        ? '<p>Producto No Disponible</p>'
+                        ? '<p class="producto-no-disponible">No Disponible</p>'
                         :`<button class="productos-agregar" onclick="agregarCarro(${producto.id})">Agregar</button>`}
                     </div>
                 `;

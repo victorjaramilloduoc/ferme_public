@@ -94,7 +94,7 @@
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-.venta-volver-carrito:hover{
+.venta-volver-carrito:hover {
     color:#fff;
     font-weight: bold;
     border: 2px solid #0062cc;
@@ -140,12 +140,16 @@
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-.venta-sin-productos:hover{
+.venta-sin-productos:hover {
     color: #fff;
     font-weight: bold;
     background-color: #0069d9;
     border-color: #0062cc;
     text-decoration: none;
+}
+
+.venta-sin-productos:focus, .venta-comprar-ahora:focus, .venta-volver-carrito:focus {
+    outline: none;
 }
 
 .resumen-carrito-vacio-venta {

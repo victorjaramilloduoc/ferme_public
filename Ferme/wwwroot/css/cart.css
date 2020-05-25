@@ -71,6 +71,10 @@
     text-decoration: none;
 }
 
+.button-mas-productos:focus, .button-comprar:focus {
+    outline: none;
+}
+
 .thead {
     text-align-last: center;
 }
@@ -88,6 +92,7 @@
     padding: 10px;
     width: 100px;
     height: 100px;
+    align-self: center;
 }
 
 .carro-unidad {
@@ -112,7 +117,7 @@
 
 .carro-producto {
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
 }
 
@@ -127,11 +132,11 @@
     font-size: 20px;
 }
 
-@media (max-width: 768px) {
-    .carro-producto {
-        flex-direction: column;
-    }
+.table thead th {
+    border-bottom: none;
+}
 
+@media (max-width: 768px) {
     .thead, .carro-unidad, .carro-precio{
         display:none;
     }
@@ -145,6 +150,10 @@
         padding: 10px;
         width: 100px;
         height: 100px;
+    }
+
+    .carro-precio-total, .carro-producto, .carro-nombre{
+        font-size: 14px;
     }
 
     .table td {

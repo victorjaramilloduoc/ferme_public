@@ -39,7 +39,11 @@
     color: #fff;
     background-color: #0069d9;
     border-color: #0062cc;
-    text-decoration: none;
+    text-decoration: none;    
+}
+
+.container-login-boton-registrar:focus {
+    outline: none;
 }
 
 #texto-registro{
