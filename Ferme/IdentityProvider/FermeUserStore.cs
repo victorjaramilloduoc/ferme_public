@@ -77,9 +77,27 @@ namespace Ferme.IdentityProvider
             throw new NotImplementedException();
         }
 
-        public Task<FermeUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
+        public async Task<FermeUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            api_docsClient clienteAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
+            var usuarioApi = ((JObject)await clienteAPI.SearchUserUsingGETAsync(long.Parse(userId))).ToObject<UserEntity>();
+            return new FermeUser()
+            {
+                SecurityStamp = Guid.NewGuid().ToString(),
+                PasswordHash = usuarioApi.Password,
+                Email = usuarioApi.Email,
+                Login = usuarioApi.Email,
+                NormalizedUserName = usuarioApi.Email.ToUpper(),
+                NormalizedEmail = usuarioApi.Email.ToUpper(),
+                Id = usuarioApi.Id.GetValueOrDefault(),
+                UserName = usuarioApi.Email,
+                FirstName = usuarioApi.Name,
+                LastName = usuarioApi.LastName,
+                Address = usuarioApi.Address,
+                Rut = usuarioApi.Rut.Value,
+                Dv = usuarioApi.Dv,
+                Location = usuarioApi.Location
+            };
         }
 
         public Task<FermeUser> FindByLoginAsync(string loginProvider, string providerKey, CancellationToken cancellationToken)
@@ -90,7 +108,6 @@ namespace Ferme.IdentityProvider
         // Busca a un usuario por su nombre de usuario (Normalizado con mayúscula)
         public async Task<FermeUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            PasswordHasher<FermeUser> passwordHasher = new PasswordHasher<FermeUser>();
             api_docsClient clienteAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
             JArray usuarios = (JArray)await clienteAPI.GetUsersUsingGETAsync();
             foreach (var usuario in usuarios)
