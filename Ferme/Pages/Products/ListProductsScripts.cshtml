@@ -4,6 +4,7 @@
         if (response.ok) {
             let productos = await response.json();
             let html = ``;
+            
             Array.from(productos).forEach((producto) => {
                 html += `
                     <div class="card col-6 col-md-3">
@@ -13,12 +14,12 @@
                         <p class="productos-precio">$ ${producto.precio.toLocaleString()} c/u</p>
                         ${producto.stock === 0 
                         ? '<p class="producto-no-disponible">No Disponible</p>'
-                        :`<button class="productos-agregar" onclick="agregarCarro(${producto.id})">Agregar</button>`}
+                        :`<button class="productos-agregar" onclick="agregarCarro(${producto.id})" data-toggle="modal" data-target="#exampleModalCenter">Agregar</button>`}
                     </div>
                 `;
             })
-            document.getElementById("contenedorProductos").innerHTML = html;
-        }
+            document.getElementById("contenedorProductos").innerHTML = html;           
+        }        
     }
     traerProductos();
 </script>

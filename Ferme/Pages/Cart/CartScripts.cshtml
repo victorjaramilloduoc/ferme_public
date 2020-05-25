@@ -10,6 +10,7 @@
             let producto = await response.json();
             cart.push(producto);
             storage.setItem("cart", JSON.stringify(cart));
+            document.getElementById('contenido-modal').innerHTML =  `Se agregó el producto <strong>${producto.nombre}</strong> al carro de compras.`
         }
     }
     const mostrarProductosCarro = () => {

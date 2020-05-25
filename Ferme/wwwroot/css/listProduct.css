@@ -100,3 +100,13 @@
         min-height: 300px;
     }
 }
+
+/*modal*/
+
+.modal-header, .modal-body {
+    border-bottom: none !important;
+}
+
+.modal-footer{
+    border-top: none !important;
+}
