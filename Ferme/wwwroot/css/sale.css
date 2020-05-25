@@ -1,0 +1,193 @@
+.titulo-venta {
+    text-transform: uppercase;
+    font-size: 24px;
+}
+
+.venta-confirmacion h4 {
+    text-transform: uppercase;
+    padding: 22px 10px 0px 10px;
+    font-size: 20px;
+    border-bottom: solid 1px #868484;;
+}
+
+.venta-identificacion div, .venta-entrega div, .venta-pago div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 24px 0;
+    border-bottom: solid 1px #868484;;
+}
+
+.resumen-carrito-producto-venta{
+    min-height:400px;
+}
+
+.venta-identificacion div h4, .venta-entrega div h4, .venta-pago div h4{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 0 10px;
+}
+
+.venta-img-webpay img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.venta-confirmacion {
+    background-color: #ececec;
+}
+
+.venta-producto {
+    display:flex;
+    flex-direction: row;
+}
+
+.venta-producto div {
+    align-self: center;
+}
+
+.venta-img {
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+.venta-nombre, .venta-precio-total{
+    margin: 8px;
+}
+
+.venta-volver-carrito {
+    color:  #0069d9;
+    background-color: #ececec;
+    width: 100%;
+    display: inline-block;
+    font-weight: bold;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+    border: 2px solid #ececec;
+    margin: 16px 0px;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.venta-comprar-ahora {
+    color:  #fff;
+    background-color: #FF5900;
+    width: 100%;
+    display: inline-block;
+    font-weight: bold;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+    border: 2px solid #FF5900;
+    margin: 16px 0px;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.venta-volver-carrito:hover{
+    color:#fff;
+    font-weight: bold;
+    border: 2px solid #0062cc;
+    background-color: #0069d9;
+    text-decoration: none;
+}
+
+.venta-comprar-ahora:hover{
+    color: #fff;
+    font-weight: bold;
+    background-color: orangered ;
+    border-color: orangered ;
+    text-decoration: none;
+}
+
+#resumen-carrito a{
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.venta-total{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.venta-sin-productos{
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    width: 100%;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.venta-sin-productos:hover{
+    color: #fff;
+    font-weight: bold;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    text-decoration: none;
+}
+
+.resumen-carrito-vacio-venta {
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
+    justify-content: center;
+    align-items: center;
+}
+
+.resumen-carrito-vacio-venta p{
+    text-align: center;
+}
+
+.resumen-carrito-vacio-venta .fa-shopping-cart{
+    font-size: 42px;
+}
+
+
+@media (max-width: 768px) {
+    .venta-confirmacion{
+        margin: 16px 0;
+        padding: 16px auto;
+    }
+    .resumen-carrito-vacio-venta {
+        min-height: 140px;
+    }
+    .resumen-carrito-vacio-venta .fa-shopping-cart{
+        font-size: 32px;
+    }
+    .resumen-carrito-vacio-venta p{
+        margin: 8px auto;
+    }
+    .venta-sin-productos{
+        margin-bottom:16px;
+    }
+
+    .venta-img-webpay img {
+        width:70%;
+    }
+
+    .resumen-carrito-producto-venta {
+        min-height: 140px;
+    }
+}

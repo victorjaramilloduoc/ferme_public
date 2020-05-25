@@ -5,30 +5,38 @@
         
         if (storage.getItem("cart") && storage.getItem("cart")!=="[]") {
             cart = JSON.parse(storage.getItem("cart"));
-            let html = '';
+            let html = `
+                <div class="resumen-carrito-producto-venta">
+            `;
 
             cart.forEach(producto => { 
                 html += `
-                <article class="carro-producto">
-                    <img class="carro-img" src=${producto.imagen} class="card-img-top" alt="${producto.nombre}">
-                    <div>
-                        <p class="carro-nombre">${producto.nombre}</p>
-                        <p class="carro-precio-total">$ ${producto.precio.toLocaleString()}</p>
+                    <div class="venta-producto">
+                        <picture>                        
+                            <img class="venta-img" src=${producto.imagen} class="card-img-top" alt="${producto.nombre}">
+                        </picture>
+                        <div>
+                            <p class="venta-nombre">${producto.nombre}</p>
+                            <p class="venta-precio-total"><strong>$ ${producto.precio.toLocaleString()}</strong></p>
+                        </div>
                     </div>
-                </article>
                 `
                 precioTotal += producto.precio;              
             })
             html += `
-                <a href="../Cart/Cart">Volver al carrito</a>
-                <p>Total: $ ${precioTotal.toLocaleString()}</p>
-                <button onclick="comprar()">Comprar ahora</button>
+                </div>
+                <a href="../Cart/Cart"><button class="venta-volver-carrito">Volver al carrito</button></a>
+                <p class="venta-total">Total: $ ${precioTotal.toLocaleString()}</p>
+                <button class="venta-comprar-ahora" onclick="comprar()">Comprar ahora</button>
             `
             document.getElementById("resumen-carrito").innerHTML = html;
         }else{
             document.getElementById("resumen-carrito").innerHTML = `
-                <p>No tienes ningun producto</p>
-                <a href="../Products/ListProducts">Ver Productos</a>
+                <div class="resumen-carrito-vacio-venta">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>              
+                    <p>No tienes ningun producto</p>                    
+                </div>
+                <a href="../Products/ListProducts"><button class="venta-sin-productos">Ver Productos</button></a>
             `
         }
     }

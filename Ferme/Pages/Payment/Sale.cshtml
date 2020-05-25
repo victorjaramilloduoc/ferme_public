@@ -6,32 +6,51 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Finalizar compra</h3>
+@{
+    var Webpay = "/images/Webpay.png";
+}
+
+<h3 class="titulo-venta">Finalizar compra</h3>
 <section class = "row">
-    <section class="col-md-8 col-12">
-        <article>
-            <h3>Identificación</h3>
+    <section class="col-md-7 col-12 venta-informacion-usuario">
+        <article class= "venta-identificacion">
+            <div>
+                <i class="fas fa-user"></i>
+                <h4>Identificación</h4>
+            </div>
             <p>@(User.FindFirst("FullName").Value)</p>
             <p>@(User.FindFirst("Email").Value)</p>
-            <select id="tipo-documento">
+            <p>Tipo documento: </p>
+            <select id="tipo-documento" class="form-control">
+                <option selected>Elija una opción</option>             
                 <option value="1">Boleta</option>
                 <option value="2">Factura</option>
             </select>
         </article>
-        <article>
-            <h3>Entrega</h3>
-            <p>@(User.FindFirst("Address").Value)</p>
-            <p>@(User.FindFirst("Location").Value) @(User.FindFirst("City").Value)</p>
-            <p>@(User.FindFirst("Region").Value)</p>
+        <article class="venta-entrega">
+            <div>
+                <i class="fas fa-map-marker-alt"></i>
+                <h4>Entrega</h4>
+            </div>
+            <p>@(User.FindFirst("Address").Value), comuna @(User.FindFirst("Location").Value) </p>
+            <p>Ciudad @(User.FindFirst("City").Value)</p>
+            <p>Región @(User.FindFirst("Region").Value)</p>
         </article>
-        <article>
-            <h3>Pago</h3>
-            <p>Tarjeta de débito y crédito</p>
+        <article class="venta-pago">
+            <div>
+                <i class="far fa-credit-card"></i>
+                <h4>Pago</h4>
+            </div>
+            <p><strong>Tarjeta de débito y crédito</strong></p>
+            <p>Al hacer click en <strong>Comprar ahora</strong>, serás redirigido a la página de WebPay para realizar el pago.</p>
+            <picture class="venta-img-webpay">
+                <img  src="@Webpay" alt="logo WebPay" />
+            </picture>
         </article>
     </section>
 
-    <section class="col-md-4 col-12">
-        <h3>Resumen compra</h3>
+    <section class="col-md-5 col-12 venta-confirmacion">
+        <h4>Resumen compra</h4>
         <article id="resumen-carrito"></article>
     </section>
 </section>
