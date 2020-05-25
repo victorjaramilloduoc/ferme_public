@@ -19,7 +19,7 @@
 
         if (storage.getItem("cart") && storage.getItem("cart")!=="[]") {
             cart = JSON.parse(storage.getItem("cart"));
-            html = `
+            let html = `
                 <table class="table">
                     <thead class="thead">
                         <th scope="col-md">Producto</th>
@@ -58,7 +58,7 @@
                     <p class="carro-precio-total">Precio a pagar: $ ${precioTotal.toLocaleString()}</p>
                 </div>
                 <div class="col-12 col-md-3">
-                    <button class="button-comprar">Comprar</button>
+                    <a href="../Payment/Sale"><button class="button-comprar">Comprar</button></a>
                     <button class="button-mas-productos">Ver más Productos</button>
                 </div>
             </section>

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace Ferme.Pages.Payment
 {
     [Authorize]
-    public class ConfirmModel : PageModel
+    public class SaleModel : PageModel
     {
         public void OnGet()
         {

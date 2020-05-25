@@ -1,0 +1,41 @@
+﻿@page
+@model Ferme.Pages.Payment.SaleModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Sale";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Finalizar compra</h3>
+<section class = "row">
+    <section class="col-md-8 col-12">
+        <article>
+            <h3>Identificación</h3>
+            <p>@(User.FindFirst("FullName").Value)</p>
+            <p>@(User.FindFirst("Email").Value)</p>
+            <select id="tipo-documento">
+                <option value="1">Boleta</option>
+                <option value="2">Factura</option>
+            </select>
+        </article>
+        <article>
+            <h3>Entrega</h3>
+            <p>@(User.FindFirst("Address").Value)</p>
+            <p>@(User.FindFirst("Location").Value) @(User.FindFirst("City").Value)</p>
+            <p>@(User.FindFirst("Region").Value)</p>
+        </article>
+        <article>
+            <h3>Pago</h3>
+            <p>Tarjeta de débito y crédito</p>
+        </article>
+    </section>
+
+    <section class="col-md-4 col-12">
+        <h3>Resumen compra</h3>
+        <article id="resumen-carrito"></article>
+    </section>
+</section>
+
+@section Scripts {
+    <partial name="SaleScripts" />
+}

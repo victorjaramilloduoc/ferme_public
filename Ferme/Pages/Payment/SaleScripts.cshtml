@@ -1,0 +1,58 @@
+<script>
+    const mostrarResumenCompra = () => {
+        let storage = window.localStorage;
+        let precioTotal = 0;
+        
+        if (storage.getItem("cart") && storage.getItem("cart")!=="[]") {
+            cart = JSON.parse(storage.getItem("cart"));
+            let html = '';
+
+            cart.forEach(producto => { 
+                html += `
+                <article class="carro-producto">
+                    <img class="carro-img" src=${producto.imagen} class="card-img-top" alt="${producto.nombre}">
+                    <div>
+                        <p class="carro-nombre">${producto.nombre}</p>
+                        <p class="carro-precio-total">$ ${producto.precio.toLocaleString()}</p>
+                    </div>
+                </article>
+                `
+                precioTotal += producto.precio;              
+            })
+            html += `
+                <a href="../Cart/Cart">Volver al carrito</a>
+                <p>Total: $ ${precioTotal.toLocaleString()}</p>
+                <button onclick="comprar()">Comprar ahora</button>
+            `
+            document.getElementById("resumen-carrito").innerHTML = html;
+        }else{
+            document.getElementById("resumen-carrito").innerHTML = `
+                <p>No tienes ningun producto</p>
+                <a href="../Products/ListProducts">Ver Productos</a>
+            `
+        }
+    }
+    const comprar = async () => {
+        let storage = window.localStorage;
+        let cart = JSON.parse(storage.getItem("cart"));
+        let documentType = document.getElementById("tipo-documento").value;
+        let data = {
+            documentType : documentType,
+            cart : cart
+        };
+        let response = await fetch('../api/Sale/Sale',{
+            method: 'POST',
+            data: JSON.stringify(data)
+        })
+        if(response.ok){
+            let status = await response.json();
+            alert("Compra realizada con exito");
+            storage.removeItem("cart");
+        }
+        else{
+            alert("Error en la compra");
+        }
+    }
+
+    mostrarResumenCompra();
+</script>
