@@ -57,13 +57,23 @@
         })
         if(response.ok){
             let status = await response.json();
-            alert("Compra realizada con exito");
+            document.getElementById("contenido-modal").innerHTML = "Compra realizada con éxito. Gracias por preferir la Ferreteria Ferme.";
+            document.getElementById("botones-modal").innerHTML =
+            `
+                <a href="../../"><button type="button" class="btn btn-primary">Aceptar</button></a>
+            `;
+            $("#modal-compra").modal("show");
+
             storage.removeItem("cart");
         }
         else{
-            alert("Error en la compra");
+            document.getElementById("contenido-modal").innerHTML = "Ha ocurrido un error en la compra.";
+            document.getElementById("botones-modal").innerHTML =
+            `
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            `;
+            $("#modal-compra").modal("show");
         }
     }
-
     mostrarResumenCompra();
 </script>
