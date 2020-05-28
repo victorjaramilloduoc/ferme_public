@@ -28,6 +28,8 @@ namespace Ferme
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Hot reload
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddScoped<IPasswordHasher<FermeUser>, FermePasswordHasher>();
             //TODO: Falta un tokenProvider si quisiera implementar reset con tokens
             services.AddDefaultIdentity<FermeUser>()

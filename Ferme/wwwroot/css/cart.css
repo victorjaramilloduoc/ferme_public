@@ -1,0 +1,172 @@
+﻿.contenedor-carrito-compra {    
+    flex-direction: column;
+}
+
+.carrito-compra-vacio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height:400px;
+}
+
+.carrito-compra-vacio .fa-shopping-cart {
+    font-size: 42px;
+}
+
+.button-eliminar {
+    background-color: white;
+    border: none;
+}
+
+.button-comprar {
+    color: white;
+    background-color: orangered;
+    border-color : orangered;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.button-mas-productos {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    width: 100%;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.button-comprar:hover{
+    color: #fff;
+    font-weight: bold;
+    background-color: #FF5900 ;
+    border-color: #FF5900 ;
+    text-decoration: none;
+}
+
+.button-mas-productos:hover{
+    color: #fff;
+    font-weight: bold;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    text-decoration: none;
+}
+
+.button-mas-productos:focus, .button-comprar:focus {
+    outline: none;
+}
+
+.thead {
+    text-align-last: center;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align-last: center;    
+}
+
+.carro-producto div {
+    align-self: center;
+}
+
+.carro-img {
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+    align-self: center;
+}
+
+.carro-unidad {
+    margin-bottom:0;
+}
+
+.carro-marca{
+    text-transform: uppercase;
+    color: #868484;
+    font-size: 14px;
+}
+
+.carro-precio, .carro-precio-total{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom:0;
+}
+
+.carro-nombre{
+    font-size: 16px;    
+}
+
+.carro-producto {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.carrito-compra-detalle {
+    background-color: #ececec;
+    align-content: space-evenly;
+    min-height: 100px;
+    padding: 20px;
+}
+
+.carrito-compra-detalle div p{
+    font-size: 20px;
+}
+
+.table thead th {
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .thead, .carro-unidad, .carro-precio{
+        display:none;
+    }
+
+    .table td p {
+        margin-bottom:0;
+    }
+
+    .carro-img {
+        margin: auto;
+        padding: 10px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .carro-precio-total, .carro-producto, .carro-nombre{
+        font-size: 14px;
+    }
+
+    .table td {
+        padding:1px;
+    }
+
+    .carrito-compra-detalle {
+        padding: 10px;
+    }
+
+    .carrito-compra-detalle div p{
+        font-size: 18px;
+        margin: 10px;
+    }
+}
+

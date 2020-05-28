@@ -1,0 +1,79 @@
+<script>
+    const mostrarResumenCompra = () => {
+        let storage = window.localStorage;
+        let precioTotal = 0;
+        
+        if (storage.getItem("cart") && storage.getItem("cart")!=="[]") {
+            cart = JSON.parse(storage.getItem("cart"));
+            let html = `
+                <div class="resumen-carrito-producto-venta">
+            `;
+
+            cart.forEach(producto => { 
+                html += `
+                    <div class="venta-producto">
+                        <picture>                        
+                            <img class="venta-img" src=${producto.imagen} class="card-img-top" alt="${producto.nombre}">
+                        </picture>
+                        <div>
+                            <p class="venta-nombre">${producto.nombre}</p>
+                            <p class="venta-precio-total"><strong>$ ${producto.precio.toLocaleString()}</strong></p>
+                        </div>
+                    </div>
+                `
+                precioTotal += producto.precio;              
+            })
+            html += `
+                </div>
+                <a href="../Cart/Cart"><button class="venta-volver-carrito">Volver al carrito</button></a>
+                <p class="venta-total">Total: $ ${precioTotal.toLocaleString()}</p>
+                <button class="venta-comprar-ahora" onclick="comprar()">Comprar ahora</button>
+            `
+            document.getElementById("resumen-carrito").innerHTML = html;
+        }else{
+            document.getElementById("resumen-carrito").innerHTML = `
+                <div class="resumen-carrito-vacio-venta">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>              
+                    <p>No tienes ningun producto</p>                    
+                </div>
+                <a href="../Products/ListProducts"><button class="venta-sin-productos">Ver Productos</button></a>
+            `
+        }
+    }
+    const comprar = async () => {
+        let storage = window.localStorage;
+        let cart = JSON.parse(storage.getItem("cart"));
+        let documentType = document.getElementById("tipo-documento").value;
+        let data = {
+            documentType : documentType,
+            cart : cart
+        };
+        let response = await fetch('../api/Sale/Sale',{
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if(response.ok){
+            let status = await response.json();
+            document.getElementById("contenido-modal").innerHTML = "Compra realizada con éxito. Gracias por preferir la Ferreteria Ferme.";
+            document.getElementById("botones-modal").innerHTML =
+            `
+                <a href="../../"><button type="button" class="btn btn-primary">Aceptar</button></a>
+            `;
+            $("#modal-compra").modal("show");
+
+            storage.removeItem("cart");
+        }
+        else{
+            document.getElementById("contenido-modal").innerHTML = "Ha ocurrido un error en la compra.";
+            document.getElementById("botones-modal").innerHTML =
+            `
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            `;
+            $("#modal-compra").modal("show");
+        }
+    }
+    mostrarResumenCompra();
+</script>

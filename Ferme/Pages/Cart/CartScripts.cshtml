@@ -1,0 +1,94 @@
+<script>
+    const agregarCarro = async (id) => {
+        let storage = window.localStorage;
+        let cart = [];
+        if (storage.getItem("cart")) {
+            cart = JSON.parse(storage.getItem("cart"));
+        }
+        let response = await fetch(`../../api/product/producto/${id}`);
+        if (response.ok) {
+            let producto = await response.json();
+            cart.push(producto);
+            storage.setItem("cart", JSON.stringify(cart));
+            document.getElementById('contenido-modal').innerHTML =  `Se agregó el producto <strong>${producto.nombre}</strong> al carro de compras.`
+        }
+    }
+    const mostrarProductosCarro = () => {
+        let storage = window.localStorage;
+        let precioTotal= 0;
+        if(!document.getElementById("carrito-compra")) return null;
+
+        if (storage.getItem("cart") && storage.getItem("cart")!=="[]") {
+            cart = JSON.parse(storage.getItem("cart"));
+            let html = `
+                <table class="table">
+                    <thead class="thead">
+                        <th scope="col-md">Producto</th>
+                        <th scope="col-md">Cantidad</th>
+                        <th scope="col-md">Precio unitario</th>
+                        <th scope="col-md">Total</th>
+                        <th scope="col-md"></th>
+                    </thead>
+                    <tbody>
+            `;
+            
+            cart.forEach(producto => {                
+                html += `
+                <tr>
+                    <td class="carro-producto">
+                        <img class="carro-img" src=${producto.imagen} class="card-img-top" alt="${producto.nombre}">
+                        <div>
+                            <p class="carro-marca">${producto.marcaProducto}</p>
+                            <p class="carro-nombre">${producto.nombre}</p>
+                        </div>
+                    </td>
+                    <td><p class="carro-unidad">1</p></td>
+                    <td><p class="carro-precio">$ ${producto.precio.toLocaleString()} c/u</p></td>
+                    <td><p class="carro-precio-total">$ ${producto.precio.toLocaleString()}</p></td>
+                    <td><button class="button-eliminar" onclick="eliminarProducto(${producto.id})"><i class="fas fa-times-circle"></i></button></td>
+                </tr>
+                `
+                precioTotal += producto.precio;
+            });
+            html += `
+                </tbody>
+            </table>
+            <section class="carrito-compra-detalle row">
+                <div class="col-12 col-md-9">
+                    <p>Resumen de tu Compra</p>
+                    <p class="carro-precio-total">Precio a pagar: $ ${precioTotal.toLocaleString()}</p>
+                </div>
+                <div class="col-12 col-md-3">
+                    <a href="../Payment/Sale"><button class="button-comprar">Comprar</button></a>
+                    <a href="../Products/ListProducts"><button class="button-mas-productos">Ver más Productos</button></a>
+                </div>
+            </section>
+            `;
+            document.getElementById("carrito-compra").innerHTML = html;
+        }
+        else {
+            document.getElementById("carrito-compra").innerHTML = `
+                <div class="carrito-compra-vacio">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i> 
+                    <h5>Carro de compras vacío</h5>
+                </div>
+                <section class="carrito-compra-detalle row">
+                <div class="col-12 col-md-9">
+                    <p>Revisa nuestros productos</p>                   
+                </div>
+                <div class="col-12 col-md-3">
+                    <a href="../Products/ListProducts"><button class="button-mas-productos">Ver Productos</button>
+                </div>
+            </section>
+            `;
+        }
+    }
+    const eliminarProducto = (id) => {
+        let storage = window.localStorage;
+        cart = new Array;
+        cart = JSON.parse(storage.getItem("cart"));
+        storage.setItem("cart",JSON.stringify(cart.filter(producto => producto.id !== id)));
+        mostrarProductosCarro();
+    }
+    mostrarProductosCarro();
+</script>

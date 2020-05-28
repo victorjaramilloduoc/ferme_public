@@ -13,11 +13,11 @@
                     <p id="detalle-producto-precio">$ ${producto.precio.toLocaleString()} c/u</p>
                     ${producto.stock === 0 ?
                     '<p>Producto No Disponible</p>'
-                    : '<button id="detalle-producto-agregar" class="float-right">Agregar al carro</button>'}
+                    : `<button id="detalle-producto-agregar" onclick="agregarCarro(${producto.id})" data-toggle="modal" data-target="#exampleModalCenter" class="float-right">Agregar al carro</button>`}
                 </section>
             `;
             document.getElementById("contenedorDetalleProducto").innerHTML = html;
         }
     }
-    traerProductoId();
+    traerProductoId ();
 </script>

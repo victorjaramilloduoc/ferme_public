@@ -1,0 +1,77 @@
+﻿@page
+@model Ferme.Pages.Payment.SaleModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Sale";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var Webpay = "/images/Webpay.png";
+}
+
+<h3 class="titulo-venta">Finalizar compra</h3>
+<section class = "row">
+    <section class="col-md-7 col-12 venta-informacion-usuario">
+        <article class= "venta-identificacion">
+            <div>
+                <i class="fas fa-user"></i>
+                <h4>Identificación</h4>
+            </div>
+            <p>@(User.FindFirst("FullName").Value)</p>
+            <p>@(User.FindFirst("Email").Value)</p>
+            <p>Tipo documento: </p>
+            <select id="tipo-documento" class="form-control">
+                <option selected>Elija una opción</option>             
+                <option value="1">Boleta</option>
+                <option value="2">Factura</option>
+            </select>
+        </article>
+        <article class="venta-entrega">
+            <div>
+                <i class="fas fa-map-marker-alt"></i>
+                <h4>Entrega</h4>
+            </div>
+            <p>@(User.FindFirst("Address").Value), comuna @(User.FindFirst("Location").Value) </p>
+            <p>Ciudad @(User.FindFirst("City").Value)</p>
+            <p>Región @(User.FindFirst("Region").Value)</p>
+        </article>
+        <article class="venta-pago">
+            <div>
+                <i class="far fa-credit-card"></i>
+                <h4>Pago</h4>
+            </div>
+            <p><strong>Tarjeta de débito y crédito</strong></p>
+            <p>Al hacer click en <strong>Comprar ahora</strong>, serás redirigido a la página de WebPay para realizar el pago.</p>
+            <picture class="venta-img-webpay">
+                <img  src="@Webpay" alt="logo WebPay" />
+            </picture>
+        </article>
+    </section>
+
+    <section class="col-md-5 col-12 venta-confirmacion">
+        <h4>Resumen compra</h4>
+        <article id="resumen-carrito"></article>
+    </section>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-compra"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" id="contenido-modal"></div>
+            <div class="modal-footer" id="botones-modal">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="SaleScripts" />
+}
