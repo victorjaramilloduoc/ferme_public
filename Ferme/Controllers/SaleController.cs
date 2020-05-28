@@ -53,7 +53,7 @@ namespace Ferme.Controllers
                     },
                     Payment_method = new PaymentMethodEntity
                     {
-                        Id=1
+                        Id = 1
                     }
                 };
                 Console.Out.WriteLine(JsonConvert.SerializeObject(saleApi));
@@ -64,8 +64,7 @@ namespace Ferme.Controllers
                 throw (ex);
             }
             
-            return "OK";
-
+            return JsonConvert.SerializeObject("OK");
         }
     }
 }
