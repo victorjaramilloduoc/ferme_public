@@ -9,13 +9,13 @@
 }
 
 #contenedorProductos{
-    justify-content: space-between;    
+    justify-content: start;    
 }
 
 .card{
     max-width:200px;
     min-height: 300px;
-    margin-bottom: 10px;
+    margin: 2px;
 }
 
 .productos-marca{
@@ -84,6 +84,13 @@
     padding-left:auto;
 }
 
+.texto-producto{
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: space-between;
+}
+
 @media (max-width: 768px) {
     .productos-img{
         padding: 10px;
@@ -96,8 +103,15 @@
         justify-content: center;
     }
     .card{
-        min-width: 160px;;
+        max-width: 160px;;
         min-height: 300px;
+        
+    }
+    .texto-producto{
+        display: flex;
+        flex-direction: column;
+        height: 150px;
+        justify-content: space-between;
     }
 }
 
