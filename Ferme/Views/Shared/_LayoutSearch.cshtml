@@ -9,18 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <!--Estilos css-->
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.css?v1" />
-    <link rel="stylesheet" href="~/css/site.css?v2" />
+    <link rel="stylesheet" href="~/css/site.css?v3" />
     <link rel="stylesheet" href="~/css/index.css?v1" />
-    <link rel="stylesheet" href="~/css/login.css?v1" />
-    <link rel="stylesheet" href="~/css/register.css?v1" />
     <link rel="stylesheet" href="~/css/listProduct.css?v2" />
     <link rel="stylesheet" href="~/css/detailProduct.css?v1" />
     <link rel="stylesheet" href="~/css/cart.css?v1" />
-    <link rel="stylesheet" href="~/css/sale.css?v1" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
             <div class="container">
                 <img src="https://i.ibb.co/Rj4xpYJ/ferme-1.png" class="logo" alt="Logo Ferme" />
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Ferme</a>                
@@ -42,10 +39,12 @@
         </nav>
     </header>
     <div class="container">
-        <partial name="_Search" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <section class="contenedor-body">
+            <partial name="_Search" />
+            <main role="main" class="pb-3">
+                @RenderBody()        
+            </main>
+        </section>
     </div>
 
     <footer class="border-top footer text-muted">
