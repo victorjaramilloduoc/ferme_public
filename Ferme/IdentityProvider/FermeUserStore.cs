@@ -59,6 +59,32 @@ namespace Ferme.IdentityProvider
                 };
                 return IdentityResult.Failed(error);
             }
+            // Obtener ID del usuario recién creado
+            var id = response["user_saved"]["id"].Value<int>();
+            // Creación nuevo rol
+            UserRoleEntity rol = new UserRoleEntity()
+            {
+                Id = 0,
+                Role = new RoleEntity()
+                {
+                    Id = 2
+                },
+                User = new UserEntity()
+                {
+                    Id = id
+                }
+            };
+            // Guardar rol vía API
+            JObject responseRol = (JObject)await clienteAPI.SaveUserRoleUsingPOSTAsync(rol);
+            if (responseRol.ContainsKey("status"))
+            {
+                var error = new IdentityError()
+                {
+                    Code = "API",
+                    Description = "Error guardando rol del usuario"
+                };
+                return IdentityResult.Failed(error);
+            }
             return IdentityResult.Success;
         }
 
