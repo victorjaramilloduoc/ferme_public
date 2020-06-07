@@ -32,22 +32,59 @@ namespace Ferme.IdentityProvider
             //TODO: Registro debe contener mas datos
             UserEntity usuario = new UserEntity()
             {
+                Id = 0,
                 Name = user.FirstName,
                 BirthDate = user.BirthDate,
                 Rut = user.Rut,
                 Dv = user.Dv,
                 Enable = true,
                 Genere = user.Genere,
-                LastName = user.LastName + " " + user.SecondSurname ,
+                LastName = user.LastName + " " + user.SecondSurname,
                 Email = user.Email,
                 Password = user.PasswordHash,
                 //Phone=user.Phone
-                Address=user.Address + " " + user.Block
+                Address = user.Address + " " + user.Block,
+                Location = user.Location
             };
 
             // Llama  al clientFactory y pide un cliente para el backend
             api_docsClient clienteAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
-            await clienteAPI.SaveUserUsingPOSTAsync(usuario);
+            JObject response = (JObject) await clienteAPI.SaveUserUsingPOSTAsync(usuario);
+            if (response["status"].Value<string>() == "error")
+            {
+                var error = new IdentityError()
+                {
+                    Code = "API",
+                    Description = "Error guardando el usuario nuevo"
+                };
+                return IdentityResult.Failed(error);
+            }
+            // Obtener ID del usuario recién creado
+            var id = response["user_saved"]["id"].Value<int>();
+            // Creación nuevo rol
+            UserRoleEntity rol = new UserRoleEntity()
+            {
+                Id = 0,
+                Role = new RoleEntity()
+                {
+                    Id = 2
+                },
+                User = new UserEntity()
+                {
+                    Id = id
+                }
+            };
+            // Guardar rol vía API
+            JObject responseRol = (JObject)await clienteAPI.SaveUserRoleUsingPOSTAsync(rol);
+            if (responseRol.ContainsKey("status"))
+            {
+                var error = new IdentityError()
+                {
+                    Code = "API",
+                    Description = "Error guardando rol del usuario"
+                };
+                return IdentityResult.Failed(error);
+            }
             return IdentityResult.Success;
         }
 
@@ -66,9 +103,27 @@ namespace Ferme.IdentityProvider
             throw new NotImplementedException();
         }
 
-        public Task<FermeUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
+        public async Task<FermeUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            api_docsClient clienteAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
+            var usuarioApi = ((JObject)await clienteAPI.SearchUserUsingGETAsync(long.Parse(userId))).ToObject<UserEntity>();
+            return new FermeUser()
+            {
+                SecurityStamp = Guid.NewGuid().ToString(),
+                PasswordHash = usuarioApi.Password,
+                Email = usuarioApi.Email,
+                Login = usuarioApi.Email,
+                NormalizedUserName = usuarioApi.Email.ToUpper(),
+                NormalizedEmail = usuarioApi.Email.ToUpper(),
+                Id = usuarioApi.Id.GetValueOrDefault(),
+                UserName = usuarioApi.Email,
+                FirstName = usuarioApi.Name,
+                LastName = usuarioApi.LastName,
+                Address = usuarioApi.Address,
+                Rut = usuarioApi.Rut.Value,
+                Dv = usuarioApi.Dv,
+                Location = usuarioApi.Location
+            };
         }
 
         public Task<FermeUser> FindByLoginAsync(string loginProvider, string providerKey, CancellationToken cancellationToken)
@@ -87,15 +142,21 @@ namespace Ferme.IdentityProvider
                 if (usuarioApi.Email.ToUpper() == normalizedUserName)
                 {
                     return new FermeUser()
-                    {
+                    { 
                         SecurityStamp = Guid.NewGuid().ToString(),
-                        PasswordHash = usuarioApi.Password,
+                        PasswordHash =  usuarioApi.Password,
                         Email = usuarioApi.Email,
                         Login = usuarioApi.Email,
                         NormalizedUserName = usuarioApi.Email.ToUpper(),
                         NormalizedEmail = usuarioApi.Email.ToUpper(),
                         Id = usuarioApi.Id.GetValueOrDefault(),
-                        UserName = usuarioApi.Email
+                        UserName = usuarioApi.Email,
+                        FirstName = usuarioApi.Name,
+                        LastName = usuarioApi.LastName,
+                        Address = usuarioApi.Address,
+                        Rut = usuarioApi.Rut.Value,
+                        Dv = usuarioApi.Dv,
+                        Location = usuarioApi.Location
                     };
                 }
             }

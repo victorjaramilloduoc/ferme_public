@@ -1,0 +1,29 @@
+﻿<script>
+    const traerProductos = async () => {
+        let response = await fetch(`../../api/product/producto`);
+        if (response.ok) {
+            let productos = await response.json();
+            let html = ``;
+            
+            Array.from(productos).forEach((producto) => {
+                html += `
+                    <div class="productos-card col-6 col-md-3 ">
+                        <img class="productos-img" src=${producto.imagen} class="card-img-top" alt="${producto.nombre}">
+                        <div class="texto-producto">
+                            <p class="productos-marca">${producto.marcaProducto}</p>
+                            <p class="productos-nombre"><a href="DetailProduct?id=${producto.id}">${producto.nombre}</a></p>
+                            <p class="productos-precio">$ ${producto.precio.toLocaleString()} c/u</p>
+                        </div>
+                        <div class="button-producto">
+                            ${producto.stock === 0 
+                            ? '<p class="producto-no-disponible">No Disponible</p>'
+                            :`<button class="productos-agregar" onclick="agregarCarro(${producto.id})" data-toggle="modal" data-target="#exampleModalCenter">Agregar</button>`}
+                        </div>
+                    </div>
+                `;
+            })
+            document.getElementById("contenedorProductos").innerHTML = html;           
+        }        
+    }
+    traerProductos();
+</script>

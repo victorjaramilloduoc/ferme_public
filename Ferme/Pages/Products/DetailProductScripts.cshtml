@@ -1,0 +1,23 @@
+<script>
+    const traerProductoId = async () => {
+        let urlParams = new URLSearchParams(location.search); //saca el id del queryparams de la url
+        let response = await fetch(`../../api/product/producto/${urlParams.get("id")}`);
+        if (response.ok) {
+            let producto = await response.json();
+            let html = `
+                <img id="detalle-producto-img" class="col-12 col-md-6" src="${producto.imagen}" alt="${producto.nombre}">
+                <section class="col-10 col-md-6 detalle-producto">
+                    <p id="detalle-producto-marca">${producto.marcaProducto}</p>
+                    <p id="detalle-producto-nombre">${producto.nombre}</p>
+                    <p id="detalle-producto-descripcion">${producto.descripcion}</p>
+                    <p id="detalle-producto-precio">$ ${producto.precio.toLocaleString()} c/u</p>
+                    ${producto.stock === 0 ?
+                    '<p>Producto No Disponible</p>'
+                    : `<button id="detalle-producto-agregar" onclick="agregarCarro(${producto.id})" data-toggle="modal" data-target="#exampleModalCenter" class="float-right">Agregar al carro</button>`}
+                </section>
+            `;
+            document.getElementById("contenedorDetalleProducto").innerHTML = html;
+        }
+    }
+    traerProductoId ();
+</script>

@@ -1,0 +1,13 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Carro de compras";
+    Layout = "~/Views/Shared/_LayoutSearch.cshtml";
+}
+
+<div class="contenedor-carrito-compra">
+    <section id="carrito-compra" class="col-12"></section>    
+</div>
+@section Scripts {
+    <partial name="CartScripts" />
+}

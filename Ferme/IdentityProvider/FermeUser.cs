@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FermeBackend;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Ferme.IdentityProvider
         public string LastName { get; set; }
         public string SecondSurname { get; set; }
 
-        public int Rut { get; set; }
+        public long Rut { get; set; }
         public string Dv { get; set; }
         public string Genere { get; set; }
         public int Phone { get; set; }
@@ -25,7 +26,7 @@ namespace Ferme.IdentityProvider
         public string Address { get; set; }
         public string Block { get; set; }
         public System.DateTimeOffset? BirthDate { get; set; }
-
-       
+        public string Token { get; set; }  
+        public LocationEntity Location { get; set;} 
     }
 }
