@@ -25,8 +25,7 @@ namespace Ferme.Controllers
         {
             List<SelectListItem> listaCiudades = new List<SelectListItem>();
             api_docsClient clienteAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
-            var ciudades = ((JArray)await clienteAPI.GetCitiesUsingGETAsync()).ToObject<List<CityEntity>>();
-            var ciudadesRegion = from ciudad in ciudades where ciudad.Region.Id == idRegion select ciudad;
+            var ciudadesRegion = ((JArray)await clienteAPI.GetCitiesByRegionIdUsingGETAsync(idRegion)).ToObject<List<CityEntity>>();
             foreach (var ciudad in ciudadesRegion)
             {
                 SelectListItem itemCiudad = new SelectListItem();
@@ -43,8 +42,7 @@ namespace Ferme.Controllers
         {
             List<SelectListItem> listaComunas = new List<SelectListItem>();
             api_docsClient clienteAPI = new api_docsClient(_clientFactory.CreateClient("FermeBackendClient"));
-            var comunas = ((JArray)await clienteAPI.GetLocationsUsingGETAsync()).ToObject<List<LocationEntity>>();
-            var comunasCiudad = from comuna in comunas where comuna.City.Id == idCiudad select comuna;
+            var comunasCiudad = ((JArray)await clienteAPI.GetLocationsByCityIdUsingGETAsync(idCiudad)).ToObject<List<LocationEntity>>();
             foreach (var comuna in comunasCiudad)
             {
                 SelectListItem itemComuna = new SelectListItem();
